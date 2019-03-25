@@ -13,6 +13,7 @@ public class CalcForm extends JFrame {
 
     public CalcForm(){
         setMinimumSize(new Dimension(500,500));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         equations.setEditable(false);
         setTitle("Calculator");
         setVisible(true);
