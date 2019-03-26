@@ -1,8 +1,8 @@
 package calculator;
 
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 class CalcModel {
-    static Deque<String> equationsDequeue = new LinkedList<>();
+    static List<String> equations = new ArrayList<>();
 }

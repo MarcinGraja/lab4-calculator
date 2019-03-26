@@ -7,7 +7,6 @@ public class Function {
     Function(String displayedName, String name) {
         this.displayedName = displayedName;
         this.name = name;
-
     }
 
     @Override

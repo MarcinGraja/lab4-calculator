@@ -26,6 +26,7 @@ public class CalcForm extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(settings);
         setJMenuBar(menuBar);
+        input.requestFocusInWindow();
         exit.addActionListener(e -> System.exit(0));
         reset.addActionListener(e -> {
             equations.setText("");
@@ -44,9 +45,9 @@ public class CalcForm extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    input.setText(CalcController.getPreviousEquation());
-                } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                     input.setText(CalcController.getNextEquation());
+                } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    input.setText(CalcController.getPreviousEquation());
                 }
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     try {
@@ -58,17 +59,21 @@ public class CalcForm extends JFrame {
                 }
             }
         });
-        operations.addListSelectionListener(e -> {
-            if (e.getValueIsAdjusting()) return;
-            input.setCaretPosition(input.getDocument().getLength());
-            String toInsert = operations.getSelectedValue().getName();
-            input.replaceSelection(toInsert);
-            System.out.println(toInsert);
-            System.out.println(operations.getSelectedValue().getName());
-            input.requestFocusInWindow();
-            if (input.getDocument().getLength() > 1 && toInsert.length() > 1 && toInsert.substring(toInsert.length() - 2).equals("()")) {
-                input.setCaretPosition(input.getDocument().getLength() - 1);
-            }
+        operations.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent e){
+                    if (e.getClickCount() == 2) {
+                        input.setCaretPosition(input.getDocument().getLength());
+                        String toInsert = operations.getSelectedValue().getName();
+                        input.replaceSelection(toInsert);
+                        System.out.println(toInsert);
+                        System.out.println(operations.getSelectedValue().getName());
+                        input.requestFocusInWindow();
+                        if (input.getDocument().getLength() > 1 && toInsert.length() > 1 && toInsert.substring(toInsert.length() - 2).equals("()")) {
+                            input.setCaretPosition(input.getDocument().getLength() - 1);
+                        }
+                    }
+        }
+
 
         });
     }
